@@ -1,0 +1,2 @@
+cs/mad/flashcards/BuildConfig.java
+ cs.mad.flashcards.BuildConfig

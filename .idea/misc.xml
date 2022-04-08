@@ -3,9 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Dropbox/School/2022 Spring/Mobile App Development/Final/noteapp/app/src/main/res/layout/activity_qrcode.xml" value="0.1" />
         <entry key="..\:/Dropbox/School/2022 Spring/Mobile App Development/Final/noteapp/app/src/main/res/layout/item_note_folder.xml" value="0.18229166666666666" />
         <entry key="..\:/Users/kings/Documents/CS 422/NoteApp Final Project/noteapp/app/src/main/res/layout/activity_main.xml" value="0.264" />
-        <entry key="..\:/Users/kings/Documents/CS 422/NoteApp Final Project/noteapp/app/src/main/res/layout/item_notes.xml" value="0.1" />
       </map>
     </option>
   </component>

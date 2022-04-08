@@ -20,9 +20,7 @@
             android:gravity="center"
             android:background="?attr/selectableItemBackground"
             android:textAlignment="center"
-            android:layout_margine="15dp"
+            android:layout_margin="15dp"
             android:textColor="@color/white" />
-
-
     </androidx.cardview.widget.CardView>
 </FrameLayout>

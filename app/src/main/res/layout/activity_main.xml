@@ -37,4 +37,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/gotoqrcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scan QRCode"
+        tools:layout_editor_absoluteX="298dp"
+        tools:layout_editor_absoluteY="653dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

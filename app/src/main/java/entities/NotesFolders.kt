@@ -1,5 +1,8 @@
 package entities
 
+import androidx.room.*
+
+@Entity
 data class NotesFolders(val title: String, val id: Long? = null){
     companion object {
         fun getHardCodedNotesFolders() : List<NotesFolders>{
@@ -10,4 +13,16 @@ data class NotesFolders(val title: String, val id: Long? = null){
             return folders
         }
     }
+}
+
+@Dao
+interface FolderDao {
+    @Query("select * from notesfolders")
+    suspend fun getAll(): List<NotesFolders>
+
+    @Insert
+    suspend fun insert(folders: NotesFolders): Long
+
+    @Update
+    suspend fun update(folders: NotesFolders)
 }

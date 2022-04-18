@@ -9,11 +9,11 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notesapp.R
-import entities.Notes
+import entities.Note
 
-class NotesAdapter(dataset: List<Notes>) : RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
+class NotesAdapter(dataset: List<Note>) : RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
 
-    private val dataSet = mutableListOf<Notes>()
+    private val dataSet = mutableListOf<Note>()
 
     init {
         this.dataSet.addAll(dataSet)
@@ -45,7 +45,7 @@ class NotesAdapter(dataset: List<Notes>) : RecyclerView.Adapter<NotesAdapter.Vie
         }
     }
 
-    private fun showEditDialog(context: Context, notes: Notes) {
+    private fun showEditDialog(context: Context, notes: Note) {
         val customTitle = EditText(context)
         val customBody = EditText(context)
         customTitle.setText(notes.title)
@@ -64,7 +64,7 @@ class NotesAdapter(dataset: List<Notes>) : RecyclerView.Adapter<NotesAdapter.Vie
         return dataSet.size
     }
 
-    fun addNote(it: Notes){
+    fun addNote(it: Note){
         dataSet.add(it)
         notifyItemInserted(dataSet.lastIndex)
     }

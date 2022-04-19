@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NotesApp">
         <activity
+            android:name=".DisplayQR"
+            android:exported="false" />
+        <activity
+            android:name=".NoteView"
+            android:exported="false" />
+        <activity
             android:name=".QRCode"
             android:exported="false" />
         <activity

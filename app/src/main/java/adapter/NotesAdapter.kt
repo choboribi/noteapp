@@ -1,6 +1,7 @@
 package Adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,17 +9,22 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
+import com.example.notesapp.NoteViewActivity
+import com.example.notesapp.NotesActivity
 import com.example.notesapp.R
+import com.example.notesapp.databinding.ItemNotesBinding
 import com.example.notesapp.runOnIO
 import entities.Note
 import entities.NoteDao
+import kotlinx.coroutines.NonDisposableHandle.parent
 
 class NotesAdapter(folderId: Long, private val dao:NoteDao) : RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
 
-    private val dataSet = mutableListOf<Note>()
+    private var dataSet = mutableListOf<Note>()
+    val folderId = folderId
 
     init {
-        this.dataSet.addAll(dataSet)
+        runOnIO { dataSet =  dao.getForSet(folderId).toMutableList()}
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -26,7 +32,8 @@ class NotesAdapter(folderId: Long, private val dao:NoteDao) : RecyclerView.Adapt
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(viewGroup.context).inflate(R.layout.item_notes, viewGroup, false))
+        val binding = ItemNotesBinding.inflate(LayoutInflater.from(viewGroup.context))
+        return ViewHolder(binding.root)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
@@ -35,6 +42,12 @@ class NotesAdapter(folderId: Long, private val dao:NoteDao) : RecyclerView.Adapt
         viewHolder.itemView.setOnLongClickListener {
             showEditDialog(it.context, position)
             true
+        }
+        viewHolder.itemView.setOnClickListener {
+            val intent = Intent(viewHolder.itemView.context, NoteViewActivity::class.java)
+            intent.putExtra("note", item.id)
+            intent.putExtra("body", item.body)
+            viewHolder.itemView.context.startActivity(intent)
         }
     }
 

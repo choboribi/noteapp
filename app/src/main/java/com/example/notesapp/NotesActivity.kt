@@ -14,7 +14,6 @@ class NotesActivity : AppCompatActivity() {
     private var parentSetId: Long = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        println("DO YOU SEE ME")
         super.onCreate(savedInstanceState)
         binding = ActivityNotesBinding.inflate(layoutInflater)
         val view = binding.root
@@ -23,7 +22,6 @@ class NotesActivity : AppCompatActivity() {
         //get id from folder tapped
         parentSetId = intent.getLongExtra(PARENT_SET_ID_TAG, -1)
         val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, AppDatabase.name).build()
-
         //set up list of notes
         binding.notesRecyclerView.adapter = NotesAdapter(parentSetId, db.noteDao())
 

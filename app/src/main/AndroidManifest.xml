@@ -16,6 +16,10 @@
             android:name=".QRCode"
             android:exported="false" />
         <activity
+            android:name=".DisplayQRActivity"
+            android:parentActivityName=".NoteViewActivity"
+            />
+        <activity
             android:name=".ShareNotes"
             android:exported="false" />
         <activity
@@ -30,6 +34,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".NoteViewActivity"
+            android:exported="false"
+            android:parentActivityName=".NotesActivity"
+            />
         <activity
             android:name=".NotesActivity"
             android:exported="false"

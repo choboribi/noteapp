@@ -7,6 +7,7 @@ import android.widget.EditText
 import com.example.notesapp.databinding.ActivityMainBinding
 import com.example.notesapp.databinding.ActivityNoteViewBinding
 
+
 class NoteView : AppCompatActivity() {
     private lateinit var binding: ActivityNoteViewBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +19,8 @@ class NoteView : AppCompatActivity() {
         binding.generateQr.setOnClickListener {
 
             val intent = Intent(this, DisplayQR::class.java)
-            intent.putExtra("test",binding.editTextTextMultiLine.text)
+            println(binding.editTextTextMultiLine.text)
+            intent.putExtra("test",binding.editTextTextMultiLine.text.toString())
 
             startActivity(intent)
 

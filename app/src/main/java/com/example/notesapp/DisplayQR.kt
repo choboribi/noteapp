@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.example.notesapp.databinding.ActivityDisplayQrBinding
 import com.example.notesapp.databinding.ActivityNoteViewBinding
 
+
 class DisplayQR : AppCompatActivity() {
     private lateinit var binding: ActivityDisplayQrBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,6 +16,8 @@ class DisplayQR : AppCompatActivity() {
         setContentView(binding.root)
 
         var testString = intent.getStringExtra("test")
+//        println(testString)
+//        println("another test")
         binding.textView.text=testString
     }
 }

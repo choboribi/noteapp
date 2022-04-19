@@ -9,9 +9,11 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notesapp.R
+import com.example.notesapp.runOnIO
 import entities.Note
+import entities.NoteDao
 
-class NotesAdapter(dataset: List<Note>) : RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
+class NotesAdapter(folderId: Long, private val dao:NoteDao) : RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
 
     private val dataSet = mutableListOf<Note>()
 
@@ -30,32 +32,29 @@ class NotesAdapter(dataset: List<Note>) : RecyclerView.Adapter<NotesAdapter.View
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val item = dataSet[position]
         viewHolder.notesTitle.text = item.title
-        viewHolder.itemView.setOnClickListener {
-            AlertDialog.Builder(it.context)
-                .setTitle(item.title)
-                .setMessage(item.text)
-                .setPositiveButton("Done") {_,_ ->}
-                .setNeutralButton("Edit") {_,_ -> showEditDialog(it.context, item) }
-                .create()
-                .show()
-        }
         viewHolder.itemView.setOnLongClickListener {
-            showEditDialog(it.context, item)
+            showEditDialog(it.context, position)
             true
         }
     }
 
-    private fun showEditDialog(context: Context, notes: Note) {
+    private fun showEditDialog(context: Context, position: Int) {
         val customTitle = EditText(context)
-        val customBody = EditText(context)
+        val notes = dataSet[position]
         customTitle.setText(notes.title)
         customTitle.textSize = 20 * context.resources.displayMetrics.scaledDensity
-        customBody.setText(notes.text)
         AlertDialog.Builder(context)
             .setCustomTitle(customTitle)
-            .setView(customBody)
-            .setPositiveButton("Done") { _,_ -> }
-            .setNegativeButton("Delete") { _,_ -> }
+            .setPositiveButton("Done") { _, _ ->
+                notes.title = customTitle.text.toString()
+                runOnIO { dao.update(notes) }
+                notifyItemChanged(position)
+            }
+            .setNegativeButton("Delete") { _,_ ->
+                runOnIO { dao.delete(notes) }
+                dataSet.removeAt(position)
+                notifyItemRemoved(position)
+            }
             .create()
             .show()
     }
@@ -64,8 +63,10 @@ class NotesAdapter(dataset: List<Note>) : RecyclerView.Adapter<NotesAdapter.View
         return dataSet.size
     }
 
-    fun addNote(it: Note){
-        dataSet.add(it)
+    fun addItem(it: Note){
+        runOnIO {
+            dataSet.add(it.copy(id = dao.insert(it)))
+        }
         notifyItemInserted(dataSet.lastIndex)
     }
 }

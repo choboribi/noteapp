@@ -19,34 +19,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="29dp" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/buttonFrame"
-        android:layout_width="283dp"
-        android:layout_height="71dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextMultiLine"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="64dp">
+    <Button
+        android:id="@+id/generate_qr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Generate QR"
+        tools:layout_editor_absoluteX="29dp"
+        tools:layout_editor_absoluteY="31dp" />
 
-        <Button
-            android:id="@+id/generate_qr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="Generate QR"
-            app:layout_constraintEnd_toStartOf="@+id/save"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="15dp" />
-
-        <Button
-            android:id="@+id/save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="Save"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:layout_editor_absoluteY="15dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        tools:layout_editor_absoluteX="294dp"
+        tools:layout_editor_absoluteY="31dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

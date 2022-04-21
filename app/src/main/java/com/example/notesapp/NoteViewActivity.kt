@@ -18,11 +18,12 @@ import kotlinx.coroutines.runBlocking
 
 class NoteViewActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNoteViewBinding
-    private val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, AppDatabase.name).build()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNoteViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, AppDatabase.name).build()
 
         var getBody = intent.getStringExtra("body")
 
@@ -39,36 +40,6 @@ class NoteViewActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
-
-        binding.save.setOnClickListener {
-
-            runOnIO {
-                var tempNote = db.noteDao().getNote(intent.getLongExtra("note", -1))
-                tempNote.body = binding.editTextTextMultiLine.text.toString()
-                db.noteDao().update(tempNote)
-            }
-
-            var snackbar: Snackbar
-            snackbar = Snackbar.make(binding.root, "Saving...", 1)
-
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        runOnIO {
-            var tempNote = db.noteDao().getNote(intent.getLongExtra("note", -1))
-            tempNote.body = binding.editTextTextMultiLine.text.toString()
-            db.noteDao().update(tempNote)
-        }
-/*        fun save() = runBlocking {
-            launch {
-                var currentNote = db.noteDao().getNote(intent.getLongExtra("note", -1))
-
-            }
-        }*/
-
 
     }
 }

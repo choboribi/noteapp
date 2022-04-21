@@ -2,8 +2,11 @@ package com.example.notesapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
 import com.example.notesapp.databinding.ActivityDisplayQrBinding
 import com.example.notesapp.databinding.ActivityNoteViewBinding
+import com.google.zxing.BarcodeFormat
+import com.journeyapps.barcodescanner.BarcodeEncoder
 
 
 class DisplayQRActivity : AppCompatActivity() {
@@ -19,5 +22,11 @@ class DisplayQRActivity : AppCompatActivity() {
 //        println(testString)
 //        println("another test")
         binding.textView.text=testString
+        // reference code for generating qr code
+        // https://code.luasoftware.com/tutorials/android/android-generate-qrcode-with-xzing/
+        val barcodeEncoder = BarcodeEncoder()
+        val bitmap = barcodeEncoder.encodeBitmap(testString, BarcodeFormat.QR_CODE, 512, 512)
+
+        binding.imageView.setImageBitmap(bitmap)
     }
 }

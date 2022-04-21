@@ -9,6 +9,7 @@ import androidx.room.Room
 import com.example.notesapp.databinding.ActivityMainBinding
 import com.example.notesapp.databinding.ActivityNoteViewBinding
 import com.example.notesapp.NoteViewActivity
+import com.google.android.material.snackbar.Snackbar
 import entities.NoteDao
 import entities.Note
 import kotlinx.coroutines.launch
@@ -36,6 +37,19 @@ class NoteViewActivity : AppCompatActivity() {
             intent.putExtra("test",binding.editTextTextMultiLine.text.toString())
 
             startActivity(intent)
+
+        }
+
+        binding.save.setOnClickListener {
+
+            runOnIO {
+                var tempNote = db.noteDao().getNote(intent.getLongExtra("note", -1))
+                tempNote.body = binding.editTextTextMultiLine.text.toString()
+                db.noteDao().update(tempNote)
+            }
+
+            var snackbar: Snackbar
+            snackbar = Snackbar.make(binding.root, "Saving...", 1)
 
         }
     }

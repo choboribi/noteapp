@@ -63,6 +63,13 @@ class NotesAdapter(folderId: Long, private val dao:NoteDao) : RecyclerView.Adapt
                 runOnIO { dao.update(notes) }
                 notifyItemChanged(position)
             }
+            .setNeutralButton("Share") { _,_ ->
+                var share = Intent(android.content.Intent.ACTION_SEND)
+                share.type = "text/plain"
+                share.putExtra(android.content.Intent.EXTRA_TEXT, notes.body)
+                context.startActivity(Intent.createChooser(share, "Share with:"))
+
+            }
             .setNegativeButton("Delete") { _,_ ->
                 runOnIO { dao.delete(notes) }
                 dataSet.removeAt(position)

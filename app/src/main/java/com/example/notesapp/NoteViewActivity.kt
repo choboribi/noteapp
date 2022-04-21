@@ -26,6 +26,7 @@ class NoteViewActivity : AppCompatActivity() {
         val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, AppDatabase.name).build()
 
         var getBody = intent.getStringExtra("body")
+        var getId = intent.getLongExtra("note", -1)
 
         if (getBody != null) {
             binding.editTextTextMultiLine.setText(getBody)
@@ -41,5 +42,17 @@ class NoteViewActivity : AppCompatActivity() {
 
         }
 
+        binding.save.setOnClickListener {
+            runOnIO {
+                db.noteDao().update(changeNoteBody(db.noteDao().getNote(getId), binding.editTextTextMultiLine.text.toString()))
+            }
+        }
+
+    }
+
+    fun changeNoteBody(note: Note, body: String): Note {
+        var newNote: Note
+        newNote = Note(note.title, body, note.parentSetId, note.id)
+        return newNote
     }
 }

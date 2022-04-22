@@ -15,16 +15,16 @@ import entities.FolderDao
 import com.example.notesapp.runOnIO
 import com.example.notesapp.databinding.ItemNoteFolderBinding
 
-//ngl i took all this from the flashcard project
+//ngl almost all of this is from the flashcards
 
 class FolderAdapter (private val dao: FolderDao) :
         RecyclerView.Adapter<FolderAdapter.ViewHolder>() {
 
-        private lateinit var dataSet: MutableList<NotesFolders>
+    private lateinit var dataSet: MutableList<NotesFolders>
 
-        init {
-            runOnIO { dataSet =  dao.getAll().toMutableList()}
-        }
+    init {
+        runOnIO { dataSet =  dao.getAll().toMutableList()}
+    }
 
     class ViewHolder(bind: ItemNoteFolderBinding) : RecyclerView.ViewHolder(bind.root) {
         val binding: ItemNoteFolderBinding = bind
@@ -32,7 +32,6 @@ class FolderAdapter (private val dao: FolderDao) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemNoteFolderBinding.inflate(LayoutInflater.from(parent.context))
-        binding.root.minimumHeight = parent.height / 5
         return ViewHolder(binding)
     }
 
@@ -41,7 +40,7 @@ class FolderAdapter (private val dao: FolderDao) :
         holder.binding.NotesFolderTitle.text = item.title
         holder.binding.root.setOnClickListener {
             val intent = Intent(holder.itemView.context, NotesActivity::class.java)
-            //intent.putExtra(PARENT_SET_ID_TAG, dataSet[position].id)
+            intent.putExtra(PARENT_SET_ID_TAG, dataSet[position].id)
             holder.itemView.context.startActivity(intent)
         }
         holder.itemView.setOnLongClickListener{
@@ -54,7 +53,7 @@ class FolderAdapter (private val dao: FolderDao) :
         val customTitle = EditText(context)
         val folder = dataSet[position]
         customTitle.setText(folder.title)
-        customTitle.textSize = 20 * context.resources.displayMetrics.scaledDensity
+        customTitle.textSize = 10 * context.resources.displayMetrics.scaledDensity
         AlertDialog.Builder(context)
             .setCustomTitle(customTitle)
             .setPositiveButton("Done") { _, _ ->

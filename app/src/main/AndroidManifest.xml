@@ -36,11 +36,13 @@
         </activity>
         <activity
             android:name=".NoteViewActivity"
+            android:label="Write Note"
             android:exported="false"
             android:parentActivityName=".NotesActivity"
             />
         <activity
             android:name=".NotesActivity"
+            android:label="Notes"
             android:exported="false"
             android:parentActivityName=".MainActivity"/>
     </application>

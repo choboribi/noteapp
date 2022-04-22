@@ -14,6 +14,8 @@ class NotesActivity : AppCompatActivity() {
     private var parentSetId: Long = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
         super.onCreate(savedInstanceState)
         binding = ActivityNotesBinding.inflate(layoutInflater)
         val view = binding.root
@@ -26,7 +28,7 @@ class NotesActivity : AppCompatActivity() {
         binding.notesRecyclerView.adapter = NotesAdapter(parentSetId, db.noteDao())
 
         binding.addNoteButton.setOnClickListener{
-            (binding.notesRecyclerView.adapter as NotesAdapter).addItem(Note("New", "Test", parentSetId))
+            (binding.notesRecyclerView.adapter as NotesAdapter).addItem(Note("New", "", parentSetId))
                 binding.notesRecyclerView.smoothScrollToPosition((binding.notesRecyclerView.adapter as NotesAdapter).itemCount - 1)
         }
     }

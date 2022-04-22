@@ -18,7 +18,8 @@ import entities.Note
 import entities.NoteDao
 import kotlinx.coroutines.NonDisposableHandle.parent
 
-class NotesAdapter(folderId: Long, private val dao:NoteDao) : RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
+class NotesAdapter(folderId: Long, private val dao:NoteDao) :
+    RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
 
     private var dataSet = mutableListOf<Note>()
     val folderId = folderId
@@ -55,7 +56,7 @@ class NotesAdapter(folderId: Long, private val dao:NoteDao) : RecyclerView.Adapt
         val customTitle = EditText(context)
         val notes = dataSet[position]
         customTitle.setText(notes.title)
-        customTitle.textSize = 20 * context.resources.displayMetrics.scaledDensity
+        customTitle.textSize = 10 * context.resources.displayMetrics.scaledDensity
         AlertDialog.Builder(context)
             .setCustomTitle(customTitle)
             .setPositiveButton("Done") { _, _ ->

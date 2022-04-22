@@ -19,6 +19,8 @@ import kotlinx.coroutines.runBlocking
 class NoteViewActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNoteViewBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
         super.onCreate(savedInstanceState)
         binding = ActivityNoteViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -34,11 +36,16 @@ class NoteViewActivity : AppCompatActivity() {
 
         binding.generateQr.setOnClickListener {
 
-            val intent = Intent(this, DisplayQRActivity::class.java)
-            println(binding.editTextTextMultiLine.text)
-            intent.putExtra("test",binding.editTextTextMultiLine.text.toString())
+            if (binding.editTextTextMultiLine.text.contentEquals("")) {
+                var newSnack = Snackbar.make(binding.baseView, "Can't make QR Code from empty note!", 3)
+                newSnack.show()
+            }
+            else {
+                val intent = Intent(this, DisplayQRActivity::class.java)
+                intent.putExtra("test", binding.editTextTextMultiLine.text.toString())
 
-            startActivity(intent)
+                startActivity(intent)
+            }
 
         }
 

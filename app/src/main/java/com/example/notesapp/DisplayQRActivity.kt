@@ -17,6 +17,7 @@ import java.time.format.DateTimeFormatter
 class DisplayQRActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDisplayQrBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_display_qr)
 

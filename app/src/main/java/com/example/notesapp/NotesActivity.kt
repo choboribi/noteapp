@@ -36,8 +36,9 @@ class NotesActivity : AppCompatActivity() {
                 binding.notesRecyclerView.smoothScrollToPosition((binding.notesRecyclerView.adapter as NotesAdapter).itemCount - 1)
         }
 
-        binding.scanqrcode.setOnClickListener{
+        binding.addNoteButton.setOnLongClickListener{
             scanQrCode.launch(null)
+            true
         }
 
 

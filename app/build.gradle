@@ -50,5 +50,7 @@ dependencies {
     implementation "androidx.room:room-ktx:2.4.2"
     kapt "androidx.room:room-compiler:2.4.2"
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+    implementation("io.github.g00fy2.quickie:quickie-bundled:1.4.1")
+
 
 }

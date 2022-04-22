@@ -16,9 +16,6 @@ class NotesActivity : AppCompatActivity() {
     private var parentSetId: Long = -1
     val scanQrCode = registerForActivityResult(ScanQRCode(), ::handleResult)
 
-    fun handleResult(result: QRResult) {
-        var x=1
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
@@ -43,9 +40,17 @@ class NotesActivity : AppCompatActivity() {
             scanQrCode.launch(null)
         }
 
-        fun handleResult(result: QRResult) {
-            (binding.notesRecyclerView.adapter as NotesAdapter).addItem(Note("Imported Note", result.toString(), parentSetId))
-                binding.notesRecyclerView.smoothScrollToPosition((binding.notesRecyclerView.adapter as NotesAdapter).itemCount - 1)
+
+    }
+    fun handleResult(result: QRResult) {
+        //handle result based on https://github.com/G00fY2/quickie/issues/34
+        val textimport = when (result){
+            is QRResult.QRSuccess -> result.content.rawValue
+            QRResult.QRUserCanceled -> "User canceled"
+            QRResult.QRMissingPermission -> "Missing permission"
+            is QRResult.QRError -> "${result.exception.javaClass.simpleName}: ${result.exception.localizedMessage}"
         }
+        (binding.notesRecyclerView.adapter as NotesAdapter).addItem(Note("Imported Note", textimport.toString(), parentSetId))
+        binding.notesRecyclerView.smoothScrollToPosition((binding.notesRecyclerView.adapter as NotesAdapter).itemCount - 1)
     }
 }

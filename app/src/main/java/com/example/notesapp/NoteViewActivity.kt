@@ -50,8 +50,21 @@ class NoteViewActivity : AppCompatActivity() {
         }
 
         binding.save.setOnClickListener {
-            runOnIO {
-                db.noteDao().update(changeNoteBody(db.noteDao().getNote(getId), binding.editTextTextMultiLine.text.toString()))
+
+            if (binding.editTextTextMultiLine.text.contentEquals("") or (binding.editTextTextMultiLine.text.toString().length <= 1817)) {
+                runOnIO {
+                    db.noteDao().update(
+                        changeNoteBody(
+                            db.noteDao().getNote(getId),
+                            binding.editTextTextMultiLine.text.toString()
+                        )
+                    )
+                }
+            }
+            else {
+
+                var newSnack = Snackbar.make(binding.baseView, binding.editTextTextMultiLine.text.toString().length.toString() + "/ 1,817!", 3)
+                newSnack.show()
             }
         }
 
